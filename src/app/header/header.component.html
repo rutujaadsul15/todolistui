@@ -1,0 +1,27 @@
+
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5">
+  <a href="index.html" class="navbar-brand d-flex align-items-center">
+    <h1 class="m-0"><img class="img-fluid me-3" src="../../assets/img/icon/todologo.png" alt="">ToDoList</h1>
+  </a>
+  <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <div class="navbar-nav mx-auto bg-light pe-4 py-3 py-lg-0">
+      <a href="index.html" class="nav-item nav-link active fw-bold">Home</a>
+      <a href="about.html" class="nav-item nav-link fw-bold">About Us</a>
+      <a href="contact.html" class="nav-item nav-link fw-bold">Contact Us</a>
+      <a (click)="logout()" routerLink="/home" class="nav-item nav-link fw-bold" style="color: black;">Logout</a>
+      <div *ngIf="validLogin()"  class="d-flex flex-column align-items-center text-center profile-adjust">
+      </div>
+    </div>
+    <div class="h-100 d-lg-inline-flex align-items-center d-none">
+      <a class="btn btn-square rounded-circle bg-light text-primary me-2" href=""><i class="fab fa-facebook-f"></i></a>
+      <a class="btn btn-square rounded-circle bg-light text-primary me-2" href=""><i class="fab fa-twitter"></i></a>
+      <a class="btn btn-square rounded-circle bg-light text-primary me-2" href=""><i class="fab fa-linkedin-in"></i></a>
+      <a class="btn btn-square rounded-circle bg-light text-primary me-0" href=""><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+</nav>
+<!-- Navbar End -->

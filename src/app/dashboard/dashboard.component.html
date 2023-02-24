@@ -1,0 +1,95 @@
+<div class="d-flex justify-content-center form-wrap p-5 ">
+  <button class="btn btn-primary" type="button" (click)="displayFlagUpdate()">CREATE YOUR TASK LIST</button>
+</div>
+
+<div class="container">
+  <div class="d-flex justify-content-center form-wrap p-7 text-center ">
+    <div *ngIf="displayFlag" class="col-md-7 col-lg-8">
+      <h4 class="mb-3 mt-2">what's the plan for today ?</h4>
+      <form [formGroup]="taskForm" class="needs-validation" style="margin-left:auto;margin-right:auto;">
+        <fieldset class="fieldset">
+          <div class="col-sm-12">
+            <input type="text" class="form-control" id="firstName" formControlName="taskDetails"
+              placeholder="ADD TASK DETAILS" value="" required>
+            <div *ngIf="taskForm.get('taskDetails')!.touched && taskForm.get('taskDetails')!.invalid"
+              class="alert alert-danger">
+              TASK DETAIL IS REQUIRED
+            </div>
+          </div>
+          <br />
+          <div class="col-sm-12">
+            <input type="text" class="form-control" id="taskStartTime" formControlName="taskStartTime"
+              placeholder="ADD END TIME" value="" required>
+            <div *ngIf="taskForm.get('taskStartTime')!.touched && taskForm.get('taskStartTime')!.invalid"
+              class="alert alert-danger">
+              TASK START TIME IS REQUIRED
+            </div>
+          </div>
+          <br />
+          <div class="col-sm-12">
+            <input type="text" class="form-control" id="taskEndTime" formControlName="taskEndTime"
+              placeholder="ADD END TIME" value="" required>
+            <div *ngIf="taskForm.get('taskEndTime')!.touched && taskForm.get('taskEndTime')!.invalid"
+              class="alert alert-danger">
+              TASK END TIME IS REQUIRED
+            </div>
+          </div>
+          <br />
+          <button style="margin-bottom: 6%;" class="w-100 btn btn-lg btn-primary" type="submit"
+            (click)="submitTask()">SUBMIT</button>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center form-wrap p-9 ">
+    <button class="btn btn-primary" style="margin-bottom: 6%;" type="button" (click)="getTaskByContactNumber()">VIEW
+      YOUR TASK LIST</button>
+  </div>
+  <!----------------------------------------VIEW TASK TABLE--------------------------------------------->
+
+
+  <div *ngIf="displayTaskTableFlag" class="px-0 bg-light">
+
+    <div class="table-responsive px-2">
+      <table class="table table-border">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">TASK DETAIL</th>
+            <th scope="col">TASK START TIME</th>
+            <th scope="col">TASK END TIME</th>
+            <th scope="col">STATUS</th>
+            <th scope="col">ACTION</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let i of taskResponseList">
+            <td class="text-center px-0"><span class="bg-blight">{{i!.id }}</span> </td>
+            <td> <span class="bg-bdark">{{i!.taskDetails }}</span></td>
+            <td> <span class="bg-bdark">{{i!.taskStartTime }}</span></td>
+            <td> <span class="bg-bdark">{{i!.taskEndTime }}</span></td>
+
+            <td *ngIf="i && i!.status=='NOT_STARTED'"> <i class="fas fa-tasks" style="color: blue"></i> </td>
+            <td *ngIf="i && i!.status=='STARTED'"><i class="fas fa-sync-alt" style="color: black;"></i> </td>
+            <td *ngIf="i && i!.status=='COMPLETED'"> <span class="bg-blight" style="color: green">
+                <span class="fas fa-check"></span>
+              </span></td>
+
+            <td *ngIf="i && i!.status=='DELETED'"> <i class="fas fa-trash" style="color: red"></i></td>
+            <td *ngIf="i && (i!.status=='STARTED')" style="display: flex;">
+              <button type="button" class="btn btn-dark" style="margin-right: 2%;" (click)='updateTask(i,"COMPLETED")'> completed </button>
+              <button type="button" class="btn btn-dark" (click)='deleteTaskByid(i.id)'>Cancel</button>
+            </td>
+            <td *ngIf="i && (i!.status=='NOT_STARTED')" style="display: flex;">
+              <button *ngIf="i && (i!.status=='NOT_STARTED') " type="button" class="btn btn-dark" style="margin-right: 2%;" (click)='updateTask(i,"STARTED")'> Start</button>
+              <button type="button" class="btn btn-dark " (click)='deleteTaskByid(i.id)'>Cancel</button>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
